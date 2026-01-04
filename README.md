@@ -12,7 +12,7 @@ La interfaz natural implementada es **voz mediante Text-to-Speech**, lo que perm
 - **C#**  
 - **XAML** para el diseño de la interfaz  
 - **ObservableCollection** para la actualización automática de listas  
-- **Microsoft.Maui.Devices.Speech.TextToSpeech** para la reproducción de voz
+- **TextToSpeech** para la reproducción de voz
 
 ---
 
@@ -33,7 +33,6 @@ La interfaz natural implementada es **voz mediante Text-to-Speech**, lo que perm
 
 ## Interfaz natural
 La aplicación utiliza **Text-to-Speech** para permitir al usuario escuchar sus notas en voz alta.  
-> Nota: Se ha eliminado la funcionalidad de reconocimiento de voz (Speech-to-Text) debido a que MAUI 2026 no incluye soporte nativo para dictado, y requeriría un plugin externo o servicios en la nube.  
 
 ---
 
@@ -67,6 +66,5 @@ VoiceNotesMAUI/
 ├─ AddNotePage.xaml.cs
 ├─ NoteDetailPage.xaml
 ├─ NoteDetailPage.xaml.cs
-├─ Platforms/ (Windows, Android)
 └─ README.md
 ```

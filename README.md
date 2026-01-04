@@ -57,3 +57,16 @@ La aplicación utiliza **Text-to-Speech** para permitir al usuario escuchar sus 
 
 ## Estructura del proyecto
 
+```bash
+VoiceNotesMAUI/
+│
+├─ App.xaml.cs
+├─ MainPage.xaml
+├─ MainPage.xaml.cs
+├─ AddNotePage.xaml
+├─ AddNotePage.xaml.cs
+├─ NoteDetailPage.xaml
+├─ NoteDetailPage.xaml.cs
+├─ Platforms/ (Windows, Android)
+└─ README.md
+```

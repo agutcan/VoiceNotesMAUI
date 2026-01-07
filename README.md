@@ -16,6 +16,26 @@ La interfaz natural implementada es **voz mediante Text-to-Speech**, lo que perm
 
 ---
 
+## Estilos aplicados
+- **Paleta de colores global** definida en `App.xaml`:
+  - Fondo general gris claro (`#E5E5E5`)  
+  - Tarjetas blancas para notas (`#FFFFFF`)  
+  - Texto gris oscuro (`#333333`)  
+  - Botones con colores primario/éxito/voz para destacar acciones  
+- **Bordes redondeados** y `Border` para las tarjetas de notas, reemplazando `Frame` (obsoleto en .NET 9)  
+- **Separación real entre notas** usando `ItemSpacing` en `CollectionView`  
+- Interfaz coherente y profesional, adaptada a móvil y Windows
+
+---
+
+## Animaciones
+- **Botones con efecto rebote** al pulsar (`ScaleTo`), aplicado en:
+  - **Agregar Nota**  
+  - **Guardar Nota**  
+  - **Reproducir Nota**
+
+---
+
 ## Funcionalidades
 1. **Navegación básica** usando `NavigationPage`.  
 2. **MainPage**:  

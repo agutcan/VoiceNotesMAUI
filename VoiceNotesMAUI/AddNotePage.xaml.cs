@@ -1,29 +1,27 @@
-using Microsoft.Maui.Controls;
-using System.Collections.ObjectModel;
-
 namespace VoiceNotesMAUI;
 
 public partial class AddNotePage : ContentPage
 {
-    private ObservableCollection<string> notes;
-
-    public AddNotePage(ObservableCollection<string> notesList)
+    public AddNotePage()
     {
         InitializeComponent();
-        notes = notesList;
     }
 
-    private async void OnSaveClicked(object sender, EventArgs e)
+    private async void OnGuardarNota(object sender, EventArgs e)
     {
-        if (!string.IsNullOrWhiteSpace(NoteEntry.Text))
+        var btn = sender as Button;
+        await btn.ScaleTo(0.95, 50);
+        await btn.ScaleTo(1, 50);
+
+        if (!string.IsNullOrWhiteSpace(EntradaNota.Text))
         {
-            // Esto ahora actualizará automáticamente el CollectionView
-            notes.Add(NoteEntry.Text);
+            MainPage.Notas.Add(EntradaNota.Text);
             await Navigation.PopAsync();
         }
         else
         {
-            await DisplayAlert("Error", "La nota no puede estar vacía.", "OK");
+            await DisplayAlert("Aviso", "La nota no puede estar vacía", "OK");
         }
     }
+
 }

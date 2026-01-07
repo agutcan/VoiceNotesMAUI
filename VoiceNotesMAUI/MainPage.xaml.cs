@@ -1,30 +1,36 @@
-﻿using Microsoft.Maui.Controls;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace VoiceNotesMAUI;
 
 public partial class MainPage : ContentPage
 {
-    // Cambia List a ObservableCollection
-    private ObservableCollection<string> notes = new ObservableCollection<string>();
+    public static ObservableCollection<string> Notas { get; set; } = new();
 
     public MainPage()
     {
         InitializeComponent();
-        NotesCollection.ItemsSource = notes;
+        ColeccionNotas.ItemsSource = Notas;
     }
 
-    private async void OnAddNoteClicked(object sender, EventArgs e)
+    private async void OnAgregarNota(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AddNotePage(notes));
+        var btn = sender as Button;
+        // animación rebote
+        await btn.ScaleTo(0.95, 50);
+        await btn.ScaleTo(1, 50);
+
+        await Navigation.PushAsync(new AddNotePage());
     }
 
-    private async void OnNoteSelected(object sender, SelectionChangedEventArgs e)
+
+    private async void OnNotaSeleccionada(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection.FirstOrDefault() is string note)
+        if (e.CurrentSelection.FirstOrDefault() is string nota)
         {
-            await Navigation.PushAsync(new NoteDetailPage(note));
-            NotesCollection.SelectedItem = null;
+            await Navigation.PushAsync(new NoteDetailPage(nota));
+            ColeccionNotas.SelectedItem = null;
         }
     }
 }
+
+

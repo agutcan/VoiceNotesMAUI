@@ -1,11 +1,29 @@
-<ContentPage
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="VoiceNotesMAUI.AddNotePage"
-    Title="Agregar Nota">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VoiceNotesMAUI.AddNotePage"
+             BackgroundColor="{StaticResource ColorFondo}">
 
-	<StackLayout Padding="20">
-		<Entry x:Name="NoteEntry" Placeholder="Escribe tu nota aquí" />
-		<Button Text="Guardar Nota" Clicked="OnSaveClicked"/>
-	</StackLayout>
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="✍️ Nueva nota"
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="{StaticResource ColorTexto}" />
+
+        <Entry x:Name="EntradaNota"
+               Placeholder="Escribe tu nota aquí"
+               FontSize="16"
+               BackgroundColor="{StaticResource ColorTarjeta}"
+               TextColor="{StaticResource ColorTexto}"
+               HeightRequest="50" />
+
+        <Button Text="💾 Guardar nota"
+                FontSize="18"
+                BackgroundColor="{StaticResource ColorExito}"
+                TextColor="White"
+                CornerRadius="10"
+                Clicked="OnGuardarNota" />
+
+    </VerticalStackLayout>
 </ContentPage>

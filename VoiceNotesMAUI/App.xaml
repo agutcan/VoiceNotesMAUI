@@ -5,10 +5,16 @@
              x:Class="VoiceNotesMAUI.App">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+
+            <Color x:Key="ColorFondo">#E5E5E5</Color>
+            <Color x:Key="ColorTarjeta">#FFFFFF</Color>
+            <Color x:Key="ColorTexto">#333333</Color>
+
+            <Color x:Key="ColorPrimario">#0078D7</Color>
+            <Color x:Key="ColorExito">#28A745</Color>
+            <Color x:Key="ColorVoz">#FF8C00</Color>
+
         </ResourceDictionary>
     </Application.Resources>
+
 </Application>

@@ -1,19 +1,24 @@
-using Microsoft.Maui.Controls;
+
 namespace VoiceNotesMAUI;
 
 public partial class NoteDetailPage : ContentPage
 {
-    private string note;
+    private string notaTexto;
 
-    public NoteDetailPage(string noteText)
+    public NoteDetailPage(string nota)
     {
         InitializeComponent();
-        note = noteText;
-        NoteLabel.Text = note;
+        notaTexto = nota;
+        EtiquetaNota.Text = nota;
     }
 
-    private async void OnPlayNoteClicked(object sender, EventArgs e)
+    private async void OnReproducirNota(object sender, EventArgs e)
     {
-        await TextToSpeech.Default.SpeakAsync(note);
+        var btn = sender as Button;
+        await btn.ScaleTo(0.95, 50);
+        await btn.ScaleTo(1, 50);
+
+        await TextToSpeech.Default.SpeakAsync(notaTexto);
     }
+
 }

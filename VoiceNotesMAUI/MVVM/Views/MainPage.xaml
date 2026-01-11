@@ -6,49 +6,65 @@
 
     <VerticalStackLayout Padding="20" Spacing="15">
 
-        <Label Text="📝 Mis notas"
-               FontSize="26"
+        <!-- Header -->
+        <Border BackgroundColor="{StaticResource ColorTarjeta}"
+            StrokeShape="RoundRectangle 12"
+            StrokeThickness="0"
+            Padding="15"
+            Shadow="0,5,10,Gray">
+            <Label Text="📝 Mis notas"
+               FontSize="28"
                FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="{StaticResource ColorTexto}" />
+        </Border>
+
+        <!-- Search Bar -->
+        <SearchBar Placeholder="Buscar notas..."
+                   Text="{Binding FiltroTexto}"
+                   FontSize="16"
+                   BackgroundColor="{StaticResource ColorTarjeta}"
+                   TextColor="{StaticResource ColorTexto}"
+                   CancelButtonColor="{StaticResource ColorPrimario}" />
+
+        <!-- Mensaje cuando no hay notas -->
+        <Label Text="No hay notas disponibles"
+               FontSize="16"
+               HorizontalOptions="Center"
                TextColor="{StaticResource ColorTexto}"
+               IsVisible="{Binding SinNotas}" />
 
-               HorizontalOptions="Center" />
-
+        <!-- Lista de notas -->
         <CollectionView
-                ItemsSource="{Binding Notas}"
-                SelectionMode="Single"
-                SelectionChanged="OnNotaSeleccionada">
-
+            ItemsSource="{Binding NotasFiltradas}"
+            SelectionMode="Single"
+            SelectionChanged="OnNotaSeleccionada">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical"
-                           ItemSpacing="10" />
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15" />
             </CollectionView.ItemsLayout>
-            
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border BackgroundColor="{StaticResource ColorTarjeta}"
                         StrokeShape="RoundRectangle 12"
                         StrokeThickness="0"
-                        Padding="15">
-
+                        Padding="20"
+                        Shadow="0,5,10,Gray">
                         <Label Text="{Binding Texto}"
-                            FontSize="16"
-                            TextColor="{StaticResource ColorTexto}" />
-
+                               FontSize="16"
+                               TextColor="{StaticResource ColorTexto}" />
                     </Border>
                 </DataTemplate>
-
-
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <!-- Botón agregar nota -->
         <Button Text="➕ Agregar nota"
                 FontSize="18"
                 BackgroundColor="{StaticResource ColorPrimario}"
                 TextColor="White"
                 CornerRadius="10"
+                Shadow="0,5,10,Gray"
                 Clicked="OnAgregarNota" />
 
     </VerticalStackLayout>
 </ContentPage>
-
-

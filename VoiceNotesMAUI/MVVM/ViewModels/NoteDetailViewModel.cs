@@ -1,19 +1,50 @@
-﻿using Microsoft.Maui.Media;
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Microsoft.Maui.Devices; // Para TextToSpeech
+using VoiceNotesMAUI.MVVM.Models;
 
-namespace VoiceNotesMAUI.MVVM.ViewModels
+namespace VoiceNotesMAUI.MVVM.ViewModels;
+
+public class NoteDetailViewModel : INotifyPropertyChanged
 {
-    public class NoteDetailViewModel
+    private Nota _nota;
+
+    public Nota Nota
     {
-        public string TextoNota { get; }
-
-        public NoteDetailViewModel(string texto)
+        get => _nota;
+        set
         {
-            TextoNota = texto;
-        }
-
-        public async Task ReproducirAsync()
-        {
-            await TextToSpeech.Default.SpeakAsync(TextoNota);
+            if (_nota != value)
+            {
+                _nota = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(TextoNota));
+                OnPropertyChanged(nameof(FechaCreacion));
+            }
         }
     }
+
+    public string TextoNota => Nota.Texto;
+    public DateTime FechaCreacion => Nota.FechaCreacion;
+
+    public NoteDetailViewModel(Nota nota)
+    {
+        // Garantiza que _nota nunca sea null
+        _nota = nota ?? throw new ArgumentNullException(nameof(nota));
+    }
+
+    // Método para reproducir la nota mediante Text-to-Speech
+    public async Task ReproducirNotaAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(Nota.Texto))
+        {
+            await TextToSpeech.Default.SpeakAsync(Nota.Texto);
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string? nombre = null)
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
 }

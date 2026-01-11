@@ -1,4 +1,6 @@
+using Microsoft.Maui.Controls;
 using VoiceNotesMAUI.MVVM.ViewModels;
+using VoiceNotesMAUI.MVVM.Models;
 
 namespace VoiceNotesMAUI.MVVM.Views;
 
@@ -6,18 +8,22 @@ public partial class NoteDetailPage : ContentPage
 {
     private readonly NoteDetailViewModel _viewModel;
 
-    public NoteDetailPage(string texto)
+    public NoteDetailPage(Nota nota)
     {
         InitializeComponent();
-        _viewModel = new NoteDetailViewModel(texto);
+
+        _viewModel = new NoteDetailViewModel(nota);
         BindingContext = _viewModel;
     }
 
-    private async void Reproducir_Clicked(object sender, EventArgs e)
+    private async void OnReproducirNota(object sender, EventArgs e)
     {
-        await ((Button)sender).ScaleTo(0.9, 80);
-        await ((Button)sender).ScaleTo(1, 80);
+        if (sender is Button btn)
+        {
+            await btn.ScaleToAsync(1.1, 100);
+            await btn.ScaleToAsync(1, 100);
+        }
 
-        await _viewModel.ReproducirAsync();
+        await _viewModel.ReproducirNotaAsync();
     }
 }

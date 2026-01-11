@@ -6,20 +6,32 @@
 
     <VerticalStackLayout Padding="20" Spacing="15">
 
+        <!-- Header -->
         <Label Text="✍️ Nueva nota"
                FontSize="24"
                FontAttributes="Bold"
                HorizontalOptions="Center"
                TextColor="{StaticResource ColorTexto}" />
 
-        <Entry
-               Text="{Binding TextoNota}"
-               Placeholder="Escribe tu nota aquí"
-               FontSize="16"
-               BackgroundColor="{StaticResource ColorTarjeta}"
-               TextColor="{StaticResource ColorTexto}"
-               HeightRequest="50" />
+        <!-- Editor de nota -->
+        <Border BackgroundColor="{StaticResource ColorTarjeta}"
+               StrokeShape="RoundRectangle 12"
+               StrokeThickness="0"
+               Padding="10">
+            <Editor Text="{Binding TextoNota}"
+                    Placeholder="Escribe tu nota aquí"
+                    FontSize="16"
+                    TextColor="{StaticResource ColorTexto}"
+                    HeightRequest="120" />
+        </Border>
 
+        <!-- Contador de caracteres -->
+        <Label Text="{Binding LongitudTexto, StringFormat='Caracteres: {0}'}"
+           FontSize="14"
+           HorizontalOptions="End"
+           TextColor="{StaticResource ColorTexto}" />
+
+        <!-- Botón guardar -->
         <Button Text="💾 Guardar nota"
                 FontSize="18"
                 BackgroundColor="{StaticResource ColorExito}"

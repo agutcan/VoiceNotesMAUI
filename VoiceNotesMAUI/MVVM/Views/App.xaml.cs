@@ -1,4 +1,5 @@
-﻿using VoiceNotesMAUI.MVVM.Views;
+﻿using Microsoft.Maui.Controls;
+using VoiceNotesMAUI.MVVM.Views;
 
 namespace VoiceNotesMAUI;
 
@@ -9,8 +10,9 @@ public partial class App : Application
         InitializeComponent();
     }
 
-    protected override Window CreateWindow(IActivationState activationState)
+    protected override Window CreateWindow(IActivationState? activationState)
     {
+        // NavigationPage envuelve MainPage
         return new Window(new NavigationPage(new MainPage()));
     }
 }

@@ -1,21 +1,40 @@
-﻿using VoiceNotesMAUI.MVVM.ViewModels;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using VoiceNotesMAUI.MVVM.Models;
 
-namespace VoiceNotesMAUI.MVVM.ViewModels
+namespace VoiceNotesMAUI.MVVM.ViewModels;
+
+public class AddNoteViewModel : INotifyPropertyChanged
 {
-    public class AddNoteViewModel
+    private string _textoNota = string.Empty;
+    public string TextoNota
     {
-        private readonly MainViewModel _mainViewModel;
-
-        public string TextoNota { get; set; }
-
-        public AddNoteViewModel(MainViewModel mainViewModel)
+        get => _textoNota;
+        set
         {
-            _mainViewModel = mainViewModel;
-        }
-
-        public void GuardarNota()
-        {
-            _mainViewModel.AgregarNota(TextoNota);
+            if (_textoNota != value)
+            {
+                _textoNota = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(LongitudTexto));
+            }
         }
     }
+
+    public int LongitudTexto => TextoNota.Length;
+
+    // Crear nueva nota
+    public Nota CrearNota()
+    {
+        return new Nota { Texto = TextoNota, FechaCreacion = DateTime.Now };
+    }
+
+    public void Limpiar()
+    {
+        TextoNota = string.Empty;
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string? nombre = null)
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
 }

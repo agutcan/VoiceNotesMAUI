@@ -1,24 +1,43 @@
+using Microsoft.Maui.Controls;
 using VoiceNotesMAUI.MVVM.ViewModels;
+using VoiceNotesMAUI.MVVM.Models;
 
 namespace VoiceNotesMAUI.MVVM.Views;
 
 public partial class AddNotePage : ContentPage
 {
     private readonly AddNoteViewModel _viewModel;
+    private readonly MainViewModel _mainViewModel;
 
     public AddNotePage(MainViewModel mainViewModel)
     {
         InitializeComponent();
-        _viewModel = new AddNoteViewModel(mainViewModel);
+
+        _mainViewModel = mainViewModel;
+        _viewModel = new AddNoteViewModel();
         BindingContext = _viewModel;
     }
 
-    private async void Guardar_Clicked(object sender, EventArgs e)
+    private async void OnGuardarNota(object sender, EventArgs e)
     {
-        await ((Button)sender).ScaleTo(0.9, 80);
-        await ((Button)sender).ScaleTo(1, 80);
+        if (sender is Button btn)
+        {
+            await btn.ScaleToAsync(1.1, 100);
+            await btn.ScaleToAsync(1, 100);
+        }
 
-        _viewModel.GuardarNota();
-        await Navigation.PopAsync();
+        if (!string.IsNullOrWhiteSpace(_viewModel.TextoNota))
+        {
+            var nuevaNota = _viewModel.CrearNota();
+            _mainViewModel.AgregarNota(nuevaNota);
+            _viewModel.Limpiar();
+
+            await DisplayAlert("¡Éxito!", "La nota se ha guardado.", "OK");
+            await Navigation.PopAsync();
+        }
+        else
+        {
+            await DisplayAlert("Atención", "Escribe algo antes de guardar.", "OK");
+        }
     }
 }

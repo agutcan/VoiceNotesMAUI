@@ -6,23 +6,32 @@
 
     <VerticalStackLayout Padding="20" Spacing="20">
 
-        <Border BackgroundColor="{StaticResource ColorTarjeta}"
-                StrokeShape="RoundRectangle 12"
-                StrokeThickness="0"
-                Padding="20">
+        <!-- Tarjeta de nota -->
+        <ScrollView>
+            <Border BackgroundColor="{StaticResource ColorTarjeta}"
+                    StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    Padding="20"
+                    >
+                <Label Text="{Binding TextoNota}"
+                       FontSize="18"
+                       LineBreakMode="WordWrap"
+                       TextColor="{StaticResource ColorTexto}" />
+            </Border>
+        </ScrollView>
 
-            <Label Text="{Binding TextoNota}"
-                   FontSize="18"
-                   LineBreakMode="WordWrap"
-                   TextColor="{StaticResource ColorTexto}" />
+        <!-- Fecha y hora -->
+        <Label Text="{Binding FechaCreacion, StringFormat='Creada: {0:dd/MM/yyyy HH:mm}'}"
+               FontSize="14"
+               TextColor="{StaticResource ColorTexto}" />
 
-        </Border>
-
+        <!-- Botón reproducir -->
         <Button Text="🔊 Reproducir nota"
                 FontSize="18"
                 BackgroundColor="{StaticResource ColorVoz}"
                 TextColor="White"
                 CornerRadius="10"
+                
                 Clicked="OnReproducirNota" />
 
     </VerticalStackLayout>

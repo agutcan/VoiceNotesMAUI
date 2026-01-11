@@ -1,23 +1,56 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using VoiceNotesMAUI.MVVM.Models;
 
 namespace VoiceNotesMAUI.MVVM.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Nota> Notas { get; set; }
+        public ObservableCollection<Nota> Notas { get; set; } = new();
 
-        public MainViewModel()
+        private string _filtroTexto = string.Empty;
+        public string FiltroTexto
         {
-            Notas = new ObservableCollection<Nota>();
-        }
-
-        public void AgregarNota(string texto)
-        {
-            if (!string.IsNullOrWhiteSpace(texto))
+            get => _filtroTexto;
+            set
             {
-                Notas.Add(new Nota { Texto = texto });
+                if (_filtroTexto != value)
+                {
+                    _filtroTexto = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(NotasFiltradas));
+                }
             }
         }
+
+        // Propiedad filtrada para la lista
+        public ObservableCollection<Nota> NotasFiltradas
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(FiltroTexto))
+                    return Notas;
+
+                var filtradas = Notas
+                    .Where(n => n.Texto.Contains(FiltroTexto, StringComparison.OrdinalIgnoreCase));
+
+                return new ObservableCollection<Nota>(filtradas);
+            }
+        }
+
+        // ✅ Nueva propiedad para saber si no hay notas
+        public bool SinNotas => Notas.Count == 0;
+
+        public void AgregarNota(Nota nota)
+        {
+            Notas.Add(nota);
+            OnPropertyChanged(nameof(NotasFiltradas));
+            OnPropertyChanged(nameof(SinNotas)); // Actualiza el binding
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? nombre = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
     }
 }

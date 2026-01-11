@@ -1,22 +1,22 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VoiceNotesMAUI.NoteDetailPage"
+             x:Class="VoiceNotesMAUI.MVVM.Views.NoteDetailPage"
              BackgroundColor="{StaticResource ColorFondo}">
 
     <VerticalStackLayout Padding="20" Spacing="20">
 
         <Border BackgroundColor="{StaticResource ColorTarjeta}"
-        StrokeShape="RoundRectangle 12"
-        StrokeThickness="0"
-        Padding="20">
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="0"
+                Padding="20">
 
-            <Label x:Name="EtiquetaNota"
-           FontSize="18"
-           LineBreakMode="WordWrap"
-           TextColor="{StaticResource ColorTexto}" />
+            <Label Text="{Binding TextoNota}"
+                   FontSize="18"
+                   LineBreakMode="WordWrap"
+                   TextColor="{StaticResource ColorTexto}" />
 
         </Border>
-
 
         <Button Text="🔊 Reproducir nota"
                 FontSize="18"

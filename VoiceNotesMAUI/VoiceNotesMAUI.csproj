@@ -62,10 +62,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="AddNotePage.xaml">
+	  <MauiXaml Update="MVVM\Views\AddNotePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="NoteDetailPage.xaml">
+	  <MauiXaml Update="MVVM\Views\NoteDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

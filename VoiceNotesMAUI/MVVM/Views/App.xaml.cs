@@ -1,4 +1,4 @@
-﻿using Microsoft.Maui.Controls;
+﻿using VoiceNotesMAUI.MVVM.Views;
 
 namespace VoiceNotesMAUI;
 

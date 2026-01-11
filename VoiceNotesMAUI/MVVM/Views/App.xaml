@@ -5,13 +5,37 @@
              x:Class="VoiceNotesMAUI.App">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="ColorFondo">#E5E5E5</Color>
+            <Color x:Key="ColorFondo">#F4F7FA</Color>
             <Color x:Key="ColorTarjeta">#FFFFFF</Color>
-            <Color x:Key="ColorTexto">#333333</Color>
-            <Color x:Key="ColorPrimario">#0078D7</Color>
-            <Color x:Key="ColorExito">#28A745</Color>
-            <Color x:Key="ColorVoz">#FF8C00</Color>
+            <Color x:Key="ColorTexto">#1A1A1B</Color>
+            <Color x:Key="ColorPrimario">#4F46E5</Color>
+            <Color x:Key="ColorExito">#10B981</Color>
+            <Color x:Key="ColorVoz">#F59E0B</Color>
+
+            <Style TargetType="Button">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Padding" Value="15,10" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95" />
+                                    <Setter Property="Opacity" Value="0.8" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style TargetType="InputView">
+                <Setter Property="TextColor" Value="{StaticResource ColorTexto}" />
+                <Setter Property="PlaceholderColor" Value="Gray" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
-
 </Application>

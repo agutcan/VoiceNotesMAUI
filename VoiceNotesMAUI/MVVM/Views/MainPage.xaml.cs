@@ -29,11 +29,14 @@ public partial class MainPage : ContentPage
 
     private async void OnEliminarNota(object sender, EventArgs e)
     {
-        if (sender is Button btn && btn.BindingContext is Nota nota)
+        var boton = (Button)sender;
+        var nota = boton.CommandParameter as Nota;
+
+        if (nota != null)
         {
-            // Opcional: pedir confirmación antes de eliminar
-            bool confirmar = await DisplayAlert("Confirmar", "¿Eliminar esta nota?", "Sí", "No");
-            if (confirmar)
+            // Esto detendrá la navegación visualmente porque el botón ya consumió el clic
+            bool aceptar = await DisplayAlert("Eliminar", "¿Deseas borrar esta nota?", "Sí", "No");
+            if (aceptar)
             {
                 _viewModel.EliminarNota(nota);
             }
@@ -43,10 +46,16 @@ public partial class MainPage : ContentPage
 
     private async void OnNotaSeleccionada(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection.FirstOrDefault() is Nota nota)
-        {
-            ((CollectionView)sender).SelectedItem = null; // Desmarcar
-            await Navigation.PushAsync(new NoteDetailPage(nota));
-        }
+        var lista = (CollectionView)sender;
+        var nota = e.CurrentSelection.FirstOrDefault() as Nota;
+
+        if (nota == null) return;
+
+        // LIMPIAMOS LA SELECCIÓN INMEDIATAMENTE
+        // Esto evita que al volver de "detalles" o al borrar se quede marcada
+        lista.SelectedItem = null;
+
+        // NAVEGAMOS
+        await Navigation.PushAsync(new NoteDetailPage(nota));
     }
 }

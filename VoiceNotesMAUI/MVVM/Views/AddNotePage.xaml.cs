@@ -18,6 +18,11 @@ public partial class AddNotePage : ContentPage
         BindingContext = _viewModel;
     }
 
+    private async void OnVolverClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
+
     private async void OnGuardarNota(object sender, EventArgs e)
     {
         if (sender is Button btn)

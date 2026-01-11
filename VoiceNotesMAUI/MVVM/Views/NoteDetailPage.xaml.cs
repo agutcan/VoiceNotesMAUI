@@ -26,4 +26,9 @@ public partial class NoteDetailPage : ContentPage
 
         await _viewModel.ReproducirNotaAsync();
     }
+
+    private async void OnVolverClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 }

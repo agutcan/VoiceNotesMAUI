@@ -4,84 +4,114 @@
              x:Class="VoiceNotesMAUI.MVVM.Views.MainPage"
              BackgroundColor="{StaticResource ColorFondo}">
 
-    <VerticalStackLayout Padding="20" Spacing="15">
+    <Grid RowDefinitions="Auto, Auto, *" Margin="0">
 
-        <!-- Header -->
-        <Border BackgroundColor="{StaticResource ColorTarjeta}"
-            StrokeShape="RoundRectangle 12"
-            StrokeThickness="0"
-            Padding="15"
-            Shadow="0,5,10,Gray">
-            <Label Text="📝 Mis notas"
-               FontSize="28"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="{StaticResource ColorTexto}" />
+        <VerticalStackLayout Grid.Row="0" Padding="30,40,30,10" Spacing="5">
+            <Label Text="📝 COLECCIÓN" FontSize="12" TextColor="{StaticResource ColorPrimario}"
+                   FontAttributes="Bold" CharacterSpacing="2" />
+            <Label Text="Mis notas" FontSize="36" FontAttributes="Bold" TextColor="{StaticResource ColorTexto}" />
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1" Margin="30,10,30,20" StrokeThickness="0" BackgroundColor="{StaticResource ColorTarjeta}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="12" />
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Offset="0,2" Radius="8" Opacity="0.1" Brush="Black" />
+            </Border.Shadow>
+
+            <SearchBar Placeholder="🔍 Busca por contenido de nota..." 
+                PlaceholderColor="Gray"
+                Text="{Binding FiltroTexto}"
+                FontSize="15" 
+                TextColor="{StaticResource ColorTexto}"
+                BackgroundColor="Transparent" 
+                CancelButtonColor="{StaticResource ColorPrimario}" />
         </Border>
 
-        <!-- Search Bar -->
-        <SearchBar Placeholder="Buscar notas..."
-                   Text="{Binding FiltroTexto}"
-                   FontSize="16"
-                   BackgroundColor="{StaticResource ColorTarjeta}"
-                   TextColor="{StaticResource ColorTexto}"
-                   CancelButtonColor="{StaticResource ColorPrimario}" />
+        <Grid Grid.Row="2">
+            <CollectionView ItemsSource="{Binding NotasFiltradas}" SelectionMode="Single"
+                            SelectionChanged="OnNotaSeleccionada" Margin="30,0">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                </CollectionView.ItemsLayout>
 
-        <!-- Mensaje cuando no hay notas -->
-        <Label Text="No hay notas disponibles"
-               FontSize="16"
-               HorizontalOptions="Center"
-               TextColor="{StaticResource ColorTexto}"
-               IsVisible="{Binding SinNotasFiltradas}" />
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeThickness="0" Padding="20,15" BackgroundColor="{StaticResource ColorTarjeta}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15" />
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Offset="0,4" Radius="10" Opacity="0.05" Brush="Black" />
+                            </Border.Shadow>
 
-        <!-- Lista de notas -->
-        <CollectionView
-            ItemsSource="{Binding NotasFiltradas}"
-            SelectionMode="Single"
-            SelectionChanged="OnNotaSeleccionada">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border BackgroundColor="{StaticResource ColorTarjeta}"
-                        StrokeShape="RoundRectangle 12"
-                        StrokeThickness="0"
-                        Padding="10"
-                        Shadow="0,5,10,Gray">
+                            <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                                <VerticalStackLayout Grid.Column="0" Spacing="5" VerticalOptions="Center">
+                                    <Label Text="{Binding Texto}" 
+                                       FontSize="16" 
+                                       TextColor="{StaticResource ColorTexto}"
+                                       MaxLines="1" 
+                                       LineBreakMode="TailTruncation" />
+                                                            <Label Text="Toca para escuchar" 
+                                       FontSize="12" 
+                                       TextColor="{StaticResource ColorPrimario}" 
+                                       FontAttributes="Italic" />
+                                </VerticalStackLayout>
 
-                        <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto">
-                            <!-- Texto de la nota -->
-                            <Label Text="{Binding Texto}"
-                               FontSize="16"
-                               TextColor="{StaticResource ColorTexto}"
-                               VerticalOptions="Center"
-                               Grid.Column="0" />
+                                <Button Grid.Column="1"
+                                    Text="✕"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    TextColor="#FF4C4C"
+                                    BackgroundColor="#FFF0F0"
+                                    HeightRequest="36"
+                                    WidthRequest="36"
+                                    CornerRadius="18"
+                                    Padding="0"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="End"
+                                    Clicked="OnEliminarNota"
+                                    CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <BoxView HeightRequest="100" Color="Transparent" />
+                </CollectionView.Footer>
+            </CollectionView>
 
-                            <!-- Botón eliminar -->
-                            <Button Text="🗑️"
-                                FontSize="16"
-                                BackgroundColor="#FF4C4C"
-                                TextColor="White"
-                                CornerRadius="10"
-                                Clicked="OnEliminarNota"
-                                Grid.Column="1" />
-                        </Grid>
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15"
+                                 IsVisible="{Binding SinNotasFiltradas}">
+                <Label Text="🔍" FontSize="60" HorizontalOptions="Center" />
+                <Label Text="No encontramos notas" FontSize="16" TextColor="Gray" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Grid>
 
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-
-        </CollectionView>
-
-        <!-- Botón agregar nota -->
-        <Button Text="➕ Agregar nota"
-                FontSize="18"
-                BackgroundColor="{StaticResource ColorPrimario}"
-                TextColor="White"
-                CornerRadius="10"
-                Shadow="0,5,10,Gray"
-                Clicked="OnAgregarNota" />
-
-    </VerticalStackLayout>
+        <Border Grid.Row="2" 
+                HeightRequest="64" 
+                WidthRequest="64" 
+                HorizontalOptions="End" 
+                VerticalOptions="End" 
+                Margin="40" 
+                StrokeThickness="0" 
+                BackgroundColor="{StaticResource ColorPrimario}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="32" />
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Offset="0,8" Radius="15" Opacity="0.3" Brush="Black" />
+            </Border.Shadow>
+            <Grid>
+                <Label Text="+" 
+                       FontSize="34" 
+                       TextColor="White" 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center" 
+                       Margin="0,0,0,4" />
+                <ImageButton BackgroundColor="Transparent" Clicked="OnAgregarNota" />
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>

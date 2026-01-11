@@ -3,27 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:VoiceNotesMAUI"
              x:Class="VoiceNotesMAUI.App">
+
+    <!-- Recursos globales de la aplicación -->
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="ColorFondo">#F4F7FA</Color>
-            <Color x:Key="ColorTarjeta">#FFFFFF</Color>
-            <Color x:Key="ColorTexto">#1A1A1B</Color>
-            <Color x:Key="ColorPrimario">#4F46E5</Color>
-            <Color x:Key="ColorExito">#10B981</Color>
-            <Color x:Key="ColorVoz">#F59E0B</Color>
 
+            <!-- ============================================ -->
+            <!-- Colores globales de la app                 -->
+            <!-- ============================================ -->
+            <Color x:Key="ColorFondo">#F4F7FA</Color>
+            <!-- Color de fondo principal -->
+            <Color x:Key="ColorTarjeta">#FFFFFF</Color>
+            <!-- Color de las tarjetas de nota -->
+            <Color x:Key="ColorTexto">#1A1A1B</Color>
+            <!-- Color de texto principal -->
+            <Color x:Key="ColorPrimario">#4F46E5</Color>
+            <!-- Color principal para botones/elementos destacados -->
+            <Color x:Key="ColorExito">#10B981</Color>
+            <!-- Color para acciones de éxito / guardar -->
+            <Color x:Key="ColorVoz">#F59E0B</Color>
+            <!-- Color para botón de reproducción de voz -->
+
+            <!-- ============================================ -->
+            <!-- Estilo global para todos los botones        -->
+            <!-- ============================================ -->
             <Style TargetType="Button">
                 <Setter Property="FontAttributes" Value="Bold" />
+                <!-- Texto en negrita -->
                 <Setter Property="CornerRadius" Value="12" />
+                <!-- Bordes redondeados -->
                 <Setter Property="Padding" Value="15,10" />
+                <!-- Espaciado interno -->
+
+                <!-- Estados visuales (efecto al presionar) -->
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal" />
+                            <!-- Estado normal -->
                             <VisualState x:Name="Pressed">
+                                <!-- Estado al presionar -->
                                 <VisualState.Setters>
                                     <Setter Property="Scale" Value="0.95" />
+                                    <!-- Reduce ligeramente el tamaño -->
                                     <Setter Property="Opacity" Value="0.8" />
+                                    <!-- Reduce opacidad -->
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -31,9 +55,14 @@
                 </Setter>
             </Style>
 
+            <!-- ============================================ -->
+            <!-- Estilo global para Inputs (Entry, Editor)   -->
+            <!-- ============================================ -->
             <Style TargetType="InputView">
                 <Setter Property="TextColor" Value="{StaticResource ColorTexto}" />
+                <!-- Color del texto -->
                 <Setter Property="PlaceholderColor" Value="Gray" />
+                <!-- Color del placeholder -->
             </Style>
 
         </ResourceDictionary>

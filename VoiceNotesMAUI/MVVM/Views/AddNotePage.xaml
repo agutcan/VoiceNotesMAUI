@@ -1,72 +1,142 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
+<!-- Página para añadir una nueva nota -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VoiceNotesMAUI.MVVM.Views.AddNotePage"
              BackgroundColor="{StaticResource ColorFondo}">
 
+    <!-- Permite scroll si el contenido no cabe en pantalla -->
     <ScrollView>
+        <!-- Contenedor principal en columna -->
         <VerticalStackLayout Padding="30" Spacing="25">
 
-            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="20" VerticalOptions="Center">
-                <Border Grid.Column="0" 
-                    HeightRequest="45" 
-                    WidthRequest="45" 
-                    StrokeThickness="0" 
-                    BackgroundColor="{StaticResource ColorTarjeta}">
+            <!-- Cabecera con botón volver + título -->
+            <Grid ColumnDefinitions="Auto, *"
+                  ColumnSpacing="20"
+                  VerticalOptions="Center">
+
+                <!-- Botón volver con estilo circular -->
+                <Border Grid.Column="0"
+                        HeightRequest="45"
+                        WidthRequest="45"
+                        StrokeThickness="0"
+                        BackgroundColor="{StaticResource ColorTarjeta}">
+
+                    <!-- Forma redondeada -->
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="22.5" />
                     </Border.StrokeShape>
+
+                    <!-- Sombra del botón -->
                     <Border.Shadow>
-                        <Shadow Offset="0,3" Radius="6" Opacity="0.15" Brush="Black" />
+                        <Shadow Offset="0,3"
+                                Radius="6"
+                                Opacity="0.15"
+                                Brush="Black" />
                     </Border.Shadow>
 
-                    <Grid HorizontalOptions="Fill" VerticalOptions="Fill">
-                        <Label Text="←" 
-                           FontSize="24" 
-                           TextColor="{StaticResource ColorPrimario}"
-                           HorizontalOptions="Center" 
-                           VerticalOptions="Center"
-                           Margin="0,0,0,3" />
+                    <!-- Grid interno para superponer icono y botón invisible -->
+                    <Grid HorizontalOptions="Fill"
+                          VerticalOptions="Fill">
+
+                        <!-- Icono de flecha -->
+                        <Label Text="←"
+                               FontSize="24"
+                               TextColor="{StaticResource ColorPrimario}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Margin="0,0,0,3" />
+
+                        <!-- Botón transparente para capturar el click -->
                         <ImageButton BackgroundColor="Transparent"
-                             Clicked="OnVolverClicked"
-                             HorizontalOptions="Fill"
-                             VerticalOptions="Fill" />
+                                     Clicked="OnVolverClicked"
+                                     HorizontalOptions="Fill"
+                                     VerticalOptions="Fill" />
                     </Grid>
                 </Border>
 
+                <!-- Títulos de la página -->
                 <VerticalStackLayout Grid.Column="1">
-                    <Label Text="✍️ NUEVA" FontSize="12" TextColor="{StaticResource ColorPrimario}"
-                           FontAttributes="Bold" CharacterSpacing="2" />
-                    <Label Text="Escribir Nota" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource ColorTexto}" />
+                    <!-- Subtítulo -->
+                    <Label Text="✍️ NUEVA"
+                           FontSize="12"
+                           TextColor="{StaticResource ColorPrimario}"
+                           FontAttributes="Bold"
+                           CharacterSpacing="2" />
+
+                    <!-- Título principal -->
+                    <Label Text="Escribir Nota"
+                           FontSize="32"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTexto}" />
                 </VerticalStackLayout>
             </Grid>
 
-            <Border StrokeThickness="0" BackgroundColor="{StaticResource ColorTarjeta}">
+            <!-- Tarjeta que contiene el editor de texto -->
+            <Border StrokeThickness="0"
+                    BackgroundColor="{StaticResource ColorTarjeta}">
+
+                <!-- Bordes redondeados -->
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="20" />
                 </Border.StrokeShape>
+
+                <!-- Sombra de la tarjeta -->
                 <Border.Shadow>
-                    <Shadow Offset="0,10" Radius="20" Opacity="0.1" Brush="Black" />
+                    <Shadow Offset="0,10"
+                            Radius="20"
+                            Opacity="0.1"
+                            Brush="Black" />
                 </Border.Shadow>
 
-                <VerticalStackLayout Padding="20" Spacing="15">
-                    <Editor Text="{Binding TextoNota}" Placeholder="Escribe aquí tus ideas..."
-                            FontSize="18" TextColor="{StaticResource ColorTexto}"
-                            AutoSize="TextChanges" MinimumHeightRequest="250" />
+                <!-- Contenido interno de la tarjeta -->
+                <VerticalStackLayout Padding="20"
+                                     Spacing="15">
 
-                    <BoxView HeightRequest="1" Color="#F0F0F0" />
+                    <!-- Editor de texto enlazado al ViewModel -->
+                    <Editor Text="{Binding TextoNota}"
+                            Placeholder="Escribe aquí tus ideas..."
+                            FontSize="18"
+                            TextColor="{StaticResource ColorTexto}"
+                            AutoSize="TextChanges"
+                            MinimumHeightRequest="250" />
 
-                    <HorizontalStackLayout HorizontalOptions="End" Spacing="5">
-                        <Label Text="{Binding LongitudTexto}" FontAttributes="Bold" TextColor="{StaticResource ColorPrimario}" />
-                        <Label Text="caracteres" TextColor="Gray" />
+                    <!-- Separador visual -->
+                    <BoxView HeightRequest="1"
+                             Color="#F0F0F0" />
+
+                    <!-- Contador de caracteres -->
+                    <HorizontalStackLayout HorizontalOptions="End"
+                                           Spacing="5">
+
+                        <!-- Número de caracteres -->
+                        <Label Text="{Binding LongitudTexto}"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource ColorPrimario}" />
+
+                        <!-- Texto fijo -->
+                        <Label Text="caracteres"
+                               TextColor="Gray" />
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Border>
 
-            <Button Text="💾 Guardar Nota" FontSize="18" BackgroundColor="{StaticResource ColorExito}"
-                    TextColor="White" HeightRequest="60" CornerRadius="15" Clicked="OnGuardarNota">
+            <!-- Botón para guardar la nota -->
+            <Button Text="💾 Guardar Nota"
+                    FontSize="18"
+                    BackgroundColor="{StaticResource ColorExito}"
+                    TextColor="White"
+                    HeightRequest="60"
+                    CornerRadius="15"
+                    Clicked="OnGuardarNota">
+
+                <!-- Sombra del botón -->
                 <Button.Shadow>
-                    <Shadow Offset="0,5" Radius="12" Opacity="0.2" Brush="Black" />
+                    <Shadow Offset="0,5"
+                            Radius="12"
+                            Opacity="0.2"
+                            Brush="Black" />
                 </Button.Shadow>
             </Button>
 

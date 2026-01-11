@@ -1,116 +1,203 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- Página principal que muestra la colección de notas -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VoiceNotesMAUI.MVVM.Views.MainPage"
              BackgroundColor="{StaticResource ColorFondo}">
 
+    <!-- Grid principal dividido en:
+         Fila 0: cabecera
+         Fila 1: buscador
+         Fila 2: contenido principal -->
     <Grid RowDefinitions="Auto, Auto, *" Margin="0">
 
+        <!-- CABECERA SUPERIOR -->
         <VerticalStackLayout Grid.Row="0" Padding="30,40,30,10" Spacing="5">
-            <Label Text="📝 COLECCIÓN" FontSize="12" TextColor="{StaticResource ColorPrimario}"
-                   FontAttributes="Bold" CharacterSpacing="2" />
-            <Label Text="Mis notas" FontSize="36" FontAttributes="Bold" TextColor="{StaticResource ColorTexto}" />
+            <!-- Etiqueta pequeña decorativa -->
+            <Label Text="📝 COLECCIÓN"
+                   FontSize="12"
+                   TextColor="{StaticResource ColorPrimario}"
+                   FontAttributes="Bold"
+                   CharacterSpacing="2" />
+
+            <!-- Título principal -->
+            <Label Text="Mis notas"
+                   FontSize="36"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource ColorTexto}" />
         </VerticalStackLayout>
 
-        <Border Grid.Row="1" Margin="30,10,30,20" StrokeThickness="0" BackgroundColor="{StaticResource ColorTarjeta}">
+        <!-- BUSCADOR -->
+        <Border Grid.Row="1"
+                Margin="30,10,30,20"
+                StrokeThickness="0"
+                BackgroundColor="{StaticResource ColorTarjeta}">
+
+            <!-- Bordes redondeados -->
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="12" />
             </Border.StrokeShape>
+
+            <!-- Sombra suave para dar profundidad -->
             <Border.Shadow>
-                <Shadow Offset="0,2" Radius="8" Opacity="0.1" Brush="Black" />
+                <Shadow Offset="0,2"
+                        Radius="8"
+                        Opacity="0.1"
+                        Brush="Black" />
             </Border.Shadow>
 
-            <SearchBar Placeholder="🔍 Busca por contenido de nota..." 
-                PlaceholderColor="Gray"
-                Text="{Binding FiltroTexto}"
-                FontSize="15" 
-                TextColor="{StaticResource ColorTexto}"
-                BackgroundColor="Transparent" 
-                CancelButtonColor="{StaticResource ColorPrimario}" />
+            <!-- SearchBar enlazado al filtro del ViewModel -->
+            <SearchBar Placeholder="🔍 Busca por contenido de nota..."
+                       PlaceholderColor="Gray"
+                       Text="{Binding FiltroTexto}"
+                       FontSize="15"
+                       TextColor="{StaticResource ColorTexto}"
+                       BackgroundColor="Transparent"
+                       CancelButtonColor="{StaticResource ColorPrimario}" />
         </Border>
 
+        <!-- CONTENIDO PRINCIPAL -->
         <Grid Grid.Row="2">
-            <CollectionView ItemsSource="{Binding NotasFiltradas}" SelectionMode="Single"
-                            SelectionChanged="OnNotaSeleccionada" Margin="30,0">
+
+            <!-- Lista de notas -->
+            <CollectionView ItemsSource="{Binding NotasFiltradas}"
+                            SelectionMode="Single"
+                            SelectionChanged="OnNotaSeleccionada"
+                            Margin="30,0">
+
+                <!-- Layout vertical con separación entre tarjetas -->
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="12" />
                 </CollectionView.ItemsLayout>
 
+                <!-- Plantilla de cada nota -->
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border StrokeThickness="0" Padding="20,15" BackgroundColor="{StaticResource ColorTarjeta}">
+
+                        <!-- Tarjeta visual de la nota -->
+                        <Border StrokeThickness="0"
+                                Padding="20,15"
+                                BackgroundColor="{StaticResource ColorTarjeta}">
+
+                            <!-- Bordes redondeados -->
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="15" />
                             </Border.StrokeShape>
+
+                            <!-- Sombra ligera -->
                             <Border.Shadow>
-                                <Shadow Offset="0,4" Radius="10" Opacity="0.05" Brush="Black" />
+                                <Shadow Offset="0,4"
+                                        Radius="10"
+                                        Opacity="0.05"
+                                        Brush="Black" />
                             </Border.Shadow>
 
-                            <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
-                                <VerticalStackLayout Grid.Column="0" Spacing="5" VerticalOptions="Center">
-                                    <Label Text="{Binding Texto}" 
-                                       FontSize="16" 
-                                       TextColor="{StaticResource ColorTexto}"
-                                       MaxLines="1" 
-                                       LineBreakMode="TailTruncation" />
-                                                            <Label Text="Toca para escuchar" 
-                                       FontSize="12" 
-                                       TextColor="{StaticResource ColorPrimario}" 
-                                       FontAttributes="Italic" />
+                            <!-- Grid interno:
+                                 Columna 0: texto
+                                 Columna 1: botón eliminar -->
+                            <Grid ColumnDefinitions="*, Auto"
+                                  ColumnSpacing="10">
+
+                                <!-- Contenido de la nota -->
+                                <VerticalStackLayout Grid.Column="0"
+                                                     Spacing="5"
+                                                     VerticalOptions="Center">
+
+                                    <!-- Texto principal de la nota (truncado a una línea) -->
+                                    <Label Text="{Binding Texto}"
+                                           FontSize="16"
+                                           TextColor="{StaticResource ColorTexto}"
+                                           MaxLines="1"
+                                           LineBreakMode="TailTruncation" />
+
+                                    <!-- Texto secundario informativo -->
+                                    <Label Text="Toca para escuchar"
+                                           FontSize="12"
+                                           TextColor="{StaticResource ColorPrimario}"
+                                           FontAttributes="Italic" />
                                 </VerticalStackLayout>
 
+                                <!-- Botón para eliminar la nota -->
                                 <Button Grid.Column="1"
-                                    Text="✕"
-                                    FontSize="14"
-                                    FontAttributes="Bold"
-                                    TextColor="#FF4C4C"
-                                    BackgroundColor="#FFF0F0"
-                                    HeightRequest="36"
-                                    WidthRequest="36"
-                                    CornerRadius="18"
-                                    Padding="0"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="End"
-                                    Clicked="OnEliminarNota"
-                                    CommandParameter="{Binding .}" />
+                                        Text="✕"
+                                        FontSize="14"
+                                        FontAttributes="Bold"
+                                        TextColor="#FF4C4C"
+                                        BackgroundColor="#FFF0F0"
+                                        HeightRequest="36"
+                                        WidthRequest="36"
+                                        CornerRadius="18"
+                                        Padding="0"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="End"
+                                        Clicked="OnEliminarNota"
+                                        CommandParameter="{Binding .}" />
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+
+                <!-- Espacio extra inferior para evitar solapamientos -->
                 <CollectionView.Footer>
-                    <BoxView HeightRequest="100" Color="Transparent" />
+                    <BoxView HeightRequest="100"
+                             Color="Transparent" />
                 </CollectionView.Footer>
             </CollectionView>
 
-            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15"
+            <!-- Mensaje mostrado cuando no hay resultados en el filtro -->
+            <VerticalStackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Spacing="15"
                                  IsVisible="{Binding SinNotasFiltradas}">
-                <Label Text="🔍" FontSize="60" HorizontalOptions="Center" />
-                <Label Text="No encontramos notas" FontSize="16" TextColor="Gray" HorizontalOptions="Center" />
+
+                <Label Text="🔍"
+                       FontSize="60"
+                       HorizontalOptions="Center" />
+
+                <Label Text="No encontramos notas"
+                       FontSize="16"
+                       TextColor="Gray"
+                       HorizontalOptions="Center" />
             </VerticalStackLayout>
         </Grid>
 
-        <Border Grid.Row="2" 
-                HeightRequest="64" 
-                WidthRequest="64" 
-                HorizontalOptions="End" 
-                VerticalOptions="End" 
-                Margin="40" 
-                StrokeThickness="0" 
+        <!-- BOTÓN FLOTANTE PARA AÑADIR NOTA -->
+        <Border Grid.Row="2"
+                HeightRequest="64"
+                WidthRequest="64"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="40"
+                StrokeThickness="0"
                 BackgroundColor="{StaticResource ColorPrimario}">
+
+            <!-- Forma circular -->
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="32" />
             </Border.StrokeShape>
+
+            <!-- Sombra pronunciada para efecto flotante -->
             <Border.Shadow>
-                <Shadow Offset="0,8" Radius="15" Opacity="0.3" Brush="Black" />
+                <Shadow Offset="0,8"
+                        Radius="15"
+                        Opacity="0.3"
+                        Brush="Black" />
             </Border.Shadow>
+
+            <!-- Contenido del botón -->
             <Grid>
-                <Label Text="+" 
-                       FontSize="34" 
-                       TextColor="White" 
-                       HorizontalOptions="Center" 
-                       VerticalOptions="Center" 
+                <Label Text="+"
+                       FontSize="34"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
                        Margin="0,0,0,4" />
-                <ImageButton BackgroundColor="Transparent" Clicked="OnAgregarNota" />
+
+                <!-- Botón invisible que captura el click -->
+                <ImageButton BackgroundColor="Transparent"
+                             Clicked="OnAgregarNota" />
             </Grid>
         </Border>
     </Grid>

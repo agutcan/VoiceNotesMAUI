@@ -27,6 +27,20 @@ public partial class MainPage : ContentPage
         await Navigation.PushAsync(new AddNotePage(_viewModel));
     }
 
+    private async void OnEliminarNota(object sender, EventArgs e)
+    {
+        if (sender is Button btn && btn.BindingContext is Nota nota)
+        {
+            // Opcional: pedir confirmación antes de eliminar
+            bool confirmar = await DisplayAlert("Confirmar", "¿Eliminar esta nota?", "Sí", "No");
+            if (confirmar)
+            {
+                _viewModel.EliminarNota(nota);
+            }
+        }
+    }
+
+
     private async void OnNotaSeleccionada(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.FirstOrDefault() is Nota nota)

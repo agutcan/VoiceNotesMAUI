@@ -10,6 +10,8 @@ namespace VoiceNotesMAUI.MVVM.ViewModels
         public ObservableCollection<Nota> Notas { get; set; } = new();
 
         private string _filtroTexto = string.Empty;
+        public bool SinNotasFiltradas => NotasFiltradas.Count == 0;
+
         public string FiltroTexto
         {
             get => _filtroTexto;
@@ -20,9 +22,11 @@ namespace VoiceNotesMAUI.MVVM.ViewModels
                     _filtroTexto = value;
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(NotasFiltradas));
+                    OnPropertyChanged(nameof(SinNotasFiltradas));
                 }
             }
         }
+
 
         // Propiedad filtrada para la lista
         public ObservableCollection<Nota> NotasFiltradas
@@ -46,8 +50,20 @@ namespace VoiceNotesMAUI.MVVM.ViewModels
         {
             Notas.Add(nota);
             OnPropertyChanged(nameof(NotasFiltradas));
-            OnPropertyChanged(nameof(SinNotas)); // Actualiza el binding
+            OnPropertyChanged(nameof(SinNotasFiltradas)); 
         }
+
+        // Elimina una nota de la lista
+        public void EliminarNota(Nota nota)
+        {
+            if (Notas.Contains(nota))
+            {
+                Notas.Remove(nota);
+                OnPropertyChanged(nameof(NotasFiltradas));
+                OnPropertyChanged(nameof(SinNotasFiltradas));
+            }
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? nombre = null)

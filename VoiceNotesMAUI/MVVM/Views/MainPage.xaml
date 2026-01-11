@@ -32,7 +32,7 @@
                FontSize="16"
                HorizontalOptions="Center"
                TextColor="{StaticResource ColorTexto}"
-               IsVisible="{Binding SinNotas}" />
+               IsVisible="{Binding SinNotasFiltradas}" />
 
         <!-- Lista de notas -->
         <CollectionView
@@ -47,14 +47,31 @@
                     <Border BackgroundColor="{StaticResource ColorTarjeta}"
                         StrokeShape="RoundRectangle 12"
                         StrokeThickness="0"
-                        Padding="20"
+                        Padding="10"
                         Shadow="0,5,10,Gray">
-                        <Label Text="{Binding Texto}"
+
+                        <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto">
+                            <!-- Texto de la nota -->
+                            <Label Text="{Binding Texto}"
                                FontSize="16"
-                               TextColor="{StaticResource ColorTexto}" />
+                               TextColor="{StaticResource ColorTexto}"
+                               VerticalOptions="Center"
+                               Grid.Column="0" />
+
+                            <!-- Botón eliminar -->
+                            <Button Text="🗑️"
+                                FontSize="16"
+                                BackgroundColor="#FF4C4C"
+                                TextColor="White"
+                                CornerRadius="10"
+                                Clicked="OnEliminarNota"
+                                Grid.Column="1" />
+                        </Grid>
+
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
         </CollectionView>
 
         <!-- Botón agregar nota -->

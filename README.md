@@ -34,7 +34,7 @@ La **interfaz natural** implementada es **voz mediante Text-to-Speech**, que per
   - Botones de acción con colores semánticos (Azul para acciones, Rojo para eliminar, Naranja para voz).
 - **Diseño visual**:
   - **Bordes redondeados** y **sombras suaves** en tarjetas y botones para crear profundidad.
-  - **Iconografía intuitiva**: Uso de emojis y glifos para facilitar la navegación.
+  - **Iconografía intuitiva**: Uso de emojis y simbolos para facilitar la navegación.
   - **Layout optimizado**: Distribución de elementos ajustada para Windows y Android, asegurando que los botones de acción estén siempre al alcance visual del usuario.
   - **Feedback táctil**: Animaciones de rebote (`ScaleToAsync`) al interactuar con los elementos.
     
